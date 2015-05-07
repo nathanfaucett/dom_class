@@ -41,6 +41,7 @@ describe("domClass", function() {
             node.className = "class other";
 
             assert.equal(domClass.has(node, "other"), true);
+            assert.equal(domClass.has(node, "others"), false);
         });
     });
 });
