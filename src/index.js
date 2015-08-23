@@ -32,11 +32,11 @@ function addClasses(node, current, classNames) {
         if (current.indexOf(" " + className + " ") === -1) {
             current += className + " ";
         }
+    }
 
-        finalValue = trim(current);
-        if (node.className !== finalValue) {
-            node.className = finalValue;
-        }
+    finalValue = trim(current);
+    if (node.className !== finalValue) {
+        node.className = finalValue;
     }
 }
 
@@ -62,11 +62,11 @@ function removeClasses(node, current, classNames) {
         if (current.indexOf(" " + className + " ") !== -1) {
             current = current.replace(" " + className + " ", " ");
         }
+    }
 
-        finalValue = trim(current);
-        if (node.className !== finalValue) {
-            node.className = finalValue;
-        }
+    finalValue = trim(current);
+    if (node.className !== finalValue) {
+        node.className = finalValue;
     }
 }
 

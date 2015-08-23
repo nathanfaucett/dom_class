@@ -5,6 +5,8 @@ var tape = require("tape"),
 tape("#add(node, class) should add class to node if it will change the current className", function(assert) {
     var node = document.createElement("div");
 
+    document.body.appendChild(node);
+
     domClass.add(node, "class");
 
     assert.equal(node.className, "class");
@@ -14,6 +16,8 @@ tape("#add(node, class) should add class to node if it will change the current c
 
 tape("#remove(node, class) should remove class from node if it will change the current className", function(assert) {
     var node = document.createElement("div");
+
+    document.body.appendChild(node);
 
     node.className = "class other";
     domClass.remove(node, "other");
@@ -25,6 +29,8 @@ tape("#remove(node, class) should remove class from node if it will change the c
 
 tape("#has(node, class) should return true if node has class in className", function(assert) {
     var node = document.createElement("div");
+
+    document.body.appendChild(node);
 
     node.className = "class other";
 
