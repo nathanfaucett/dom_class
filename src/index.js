@@ -6,80 +6,78 @@ var trim = require("trim"),
 
 var domClass = exports,
 
-    CLASS_REMOVE = /[\t\r\n\f]/g,
-    SPLITER = /[\s, ]+/;
+    reClassRemove = /[\t\r\n\f]/g,
+    reSpliter = /[\s, ]+/;
 
 
 domClass.add = function(node, names) {
-    var classNames, i, current, className, finalValue;
+    var current;
 
     if (isElement(node)) {
-        current = node.className ? (" " + node.className + " ").replace(CLASS_REMOVE, " ") : " ";
+        current = node.className ? (" " + node.className + " ").replace(reClassRemove, " ") : " ";
 
         if (current) {
-            classNames = isArray(names) ? names : (isString(names) ? names.split(SPLITER) : []);
-            i = classNames.length;
-
-            while (i--) {
-                className = classNames[i];
-
-                if (current.indexOf(" " + className + " ") === -1) {
-                    current += className + " ";
-                }
-
-                finalValue = trim(current);
-                if (node.className !== finalValue) {
-                    node.className = finalValue;
-                }
-            }
+            addClasses(node, current, isArray(names) ? names : (isString(names) ? names.split(reSpliter) : []));
         }
     }
 };
+
+function addClasses(node, current, classNames) {
+    var i = classNames.length,
+        className, finalValue;
+
+    while (i--) {
+        className = classNames[i];
+
+        if (current.indexOf(" " + className + " ") === -1) {
+            current += className + " ";
+        }
+
+        finalValue = trim(current);
+        if (node.className !== finalValue) {
+            node.className = finalValue;
+        }
+    }
+}
 
 domClass.remove = function(node, names) {
-    var classNames, i, current, className, finalValue;
+    var current;
 
     if (isElement(node)) {
-        current = node.className ? (" " + node.className + " ").replace(CLASS_REMOVE, " ") : " ";
+        current = node.className ? (" " + node.className + " ").replace(reClassRemove, " ") : " ";
 
         if (current) {
-            classNames = isArray(names) ? names : (isString(names) ? names.split(SPLITER) : []);
-            i = classNames.length;
-
-            while (i--) {
-                className = classNames[i];
-
-                if (current.indexOf(" " + className + " ") !== -1) {
-                    current = current.replace(" " + className + " ", " ");
-                }
-
-                finalValue = trim(current);
-                if (node.className !== finalValue) {
-                    node.className = finalValue;
-                }
-            }
+            removeClasses(node, current, isArray(names) ? names : (isString(names) ? names.split(reSpliter) : []));
         }
     }
 };
 
+function removeClasses(node, current, classNames) {
+    var i = classNames.length,
+        className, finalValue;
+
+    while (i--) {
+        className = classNames[i];
+
+        if (current.indexOf(" " + className + " ") !== -1) {
+            current = current.replace(" " + className + " ", " ");
+        }
+
+        finalValue = trim(current);
+        if (node.className !== finalValue) {
+            node.className = finalValue;
+        }
+    }
+}
+
 domClass.has = function(node, names) {
-    var classNames, i, current, className;
+    var current;
 
     if (isElement(node)) {
-        current = node.className ? (" " + node.className + " ").replace(CLASS_REMOVE, " ") : " ";
+        current = node.className ? (" " + node.className + " ").replace(reClassRemove, " ") : " ";
 
         if (current) {
-            classNames = isArray(names) ? names : (isString(names) ? names.split(SPLITER) : []);
-            i = classNames.length;
-
-            while (i--) {
-                className = classNames[i];
-
-                if (current.indexOf(" " + className + " ") !== -1) {
-                    return true;
-                }
-            }
-            return false;
+            return hasClasses(current, isArray(names) ? names : (isString(names) ? names.split(reSpliter) : []));
         } else {
             return false;
         }
@@ -87,3 +85,18 @@ domClass.has = function(node, names) {
         return false;
     }
 };
+
+function hasClasses(current, classNames) {
+    var i = classNames.length,
+        className;
+
+    while (i--) {
+        className = classNames[i];
+
+        if (current.indexOf(" " + className + " ") !== -1) {
+            return true;
+        }
+    }
+
+    return false;
+}

@@ -3,9 +3,9 @@ module.exports = function(grunt) {
     grunt.initConfig({
         jsbeautifier: {
             files: [
-                "Gruntfile.js",
                 "src/**/*.js",
-                "test/**/*.js"
+                "test/**/*.js",
+                "Gruntfile.js"
             ]
         },
         jshint: {
@@ -15,13 +15,12 @@ module.exports = function(grunt) {
                 curly: true,
                 eqeqeq: true,
                 expr: true,
-                eqnull: true,
-                proto: true
+                eqnull: true
             },
             files: [
-                "Gruntfile.js",
                 "src/**/*.js",
-                "test/**/*.js"
+                "test/**/*.js",
+                "Gruntfile.js"
             ]
         }
     });
