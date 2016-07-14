@@ -1,7 +1,7 @@
-var trim = require("trim"),
-    isArray = require("is_array"),
-    isString = require("is_string"),
-    isElement = require("is_element");
+var trim = require("@nathanfaucett/trim"),
+    isArray = require("@nathanfaucett/is_array"),
+    isString = require("@nathanfaucett/is_string"),
+    isElement = require("@nathanfaucett/is_element");
 
 
 var domClass = exports,
